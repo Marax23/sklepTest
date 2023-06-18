@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method="post" action="/admin/add-dish" th:object="${dish}">
+    Uzupełnij dane aby dodać nowy posiłek:<br>
+    Nazwa: <input type="text" th:field="${dish.name}">
+    <label th:if="${#fields.hasErrors('name')}" th:errors="${dish.name}"></label>
+    <br>
+    Cena: <input type="number" min="0" th:field="${dish.price}">
+    <label th:if="${#fields.hasErrors('price')}" th:errors="${dish.price}"></label>
+    <br>
+    <!--    przy uzupełnianiu do obiektu th:field zamiast th:name-->
+    Kategoria:
+    <label th:if="${#fields.hasErrors('category')}" th:errors="${dish.category}"></label>
+
+    <div th:each="category:${categories}">
+      <input  type="radio" th:field="${dish.category}" th:value="${category}">
+        <label th:text="${category.getPolishName()}"> </label>
+    </div>
+    <input type="submit" value="Dodaj potrawę">
+
+</form>
+</body>
+</html>

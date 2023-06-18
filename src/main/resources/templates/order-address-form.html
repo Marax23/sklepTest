@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Uzupełnienie zamówienia</title>
+</head>
+<body>
+<h1>Uzupełnienie zamówienia</h1>
+<div>
+    <!--  tu wyświetlamy rachunek-->
+    Zamówienie przyjęte, podaj adres dostawy, opłacisz zamówienie przy odbiorze.
+    (formularz z podaniem dodatkowych informacji na temat zamówienia)
+    <table>
+        <tr>
+            <th>Nazwa</th>
+            <th>Ilość</th>
+            <th>Cena</th>
+            <th>Lączna cena</th>
+        </tr>
+        <tr th:if="${billDish.getAmount() != 0}" th:each="billDish: ${bill.getDishes()}">
+            <th th:text="${billDish.getName()}"></th>
+            <th th:text="${billDish.getAmount()}"></th>
+            <th th:text="${billDish.getPrice()}"></th>
+            <th th:text="${billDish.getTotalPrice()}"></th>
+        </tr>
+    </table>
+    <div th:text="${'Do zapłaty: ' + bill.getTotalPrice() + 'zł'}"></div>
+    <form action="/order-finish" method="post" th:object="${address}">
+        Name   <input type="text" th:field="${address.fullName}"><br>
+        Ulica  <input type="text" th:field="${address.street}"><br>
+        Miasto:<input type="text" th:field="${address.city}"><br>
+        Kod:   <input type="text" th:field="${address.postCode}"><br>
+        <input type="hidden" name="orderId" th:value="${bill.getOrderId()}">
+        <input type="submit" value="Wyslij">
+
+    </form>
+</div>
+</body>
+</html>
+
+
+<!--Nazwa potrawy, ilość, cena, łączna cena-->
+<!--Do zapłaty: -->

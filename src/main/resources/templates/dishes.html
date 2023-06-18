@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Menu</title>
+    <script src="script.js" defer></script>
+    <!--    dołączenie do html kodu JS + defer -> aby ten cały kod był od razu wywołany-->
+
+</head>
+<body>
+
+<form action="/order" method="post">
+    <h2 th:if="${errorText != null}" th:text="${'ERROR: '+errorText}"></h2>
+
+    <h1>Potrawy</h1>
+<!--sekcja menu:-->
+    <div th:each="section:${menu}">
+        <h2 th:text="${section.getCategory().getPolishName()}"></h2>
+        <div th:each="dish: ${section.getDishes()}">
+            <div>
+                <div th:text="${dish.getName() + ' ' + dish.getPrice() }"></div>
+                <div>Zakupiono: <label th:id="${'label-' + dish.getId()}">0</label></div>
+                <button type="button" th:class="plus" th:id="${'plus-' + dish.getId()}">+</button>
+                <input th:id="${'dish-count-' + dish.getId()}" type="hidden" th:name="${'dishCount-' + dish.getId()}"
+                       value="0">
+            </div>
+        </div>
+    </div>
+    <!--  <h2>Obiady</h2>
+      <div th:each="dish: ${menuSection.getDiner()}">
+          <div>
+              <div th:text="${dish.getName() + ' ' + dish.getPrice() }"></div>
+              <div>Zakupiono: <label th:id="${'label-' + dish.getId()}">0</label></div>
+              <button type="button" th:class="plus" th:id="${'plus-' + dish.getId()}">+</button>
+              <input th:id="${'dish-count-' + dish.getId()}" type="hidden" th:name="${'dishCount-' + dish.getId()}"
+                     value="0">
+          </div>
+      </div>
+      <h2>Kolacje</h2>
+      <div th:each="dish: ${menuSection.getSupper()}">
+          <div th:text="${dish.getName() + ' ' + dish.getPrice()}">
+              <div>
+                  <div th:text="${dish.getName() + ' ' + dish.getPrice() }"></div>
+                  <div>Zakupiono: <label th:id="${'label-' + dish.getId()}">0</label></div>
+                  <button type="button" th:class="plus" th:id="${'plus-' + dish.getId()}">+</button>
+                  <input th:id="${'dish-count-' + dish.getId()}" type="hidden" th:name="${'dishCount-' + dish.getId()}"
+                         value="0">
+              </div>
+          </div>
+      </div>
+      <h2>Dodatki</h2>
+      <div th:each="dish: ${menuSection.getAdditives()}">
+          <div th:text="${dish.getName() + ' ' + dish.getPrice()}">
+              <div>
+                  <div th:text="${dish.getName() + ' ' + dish.getPrice() }"></div>
+                  <div>Zakupiono: <label th:id="${'label-' + dish.getId()}">0</label></div>
+                  <button type="button" th:class="plus" th:id="${'plus-' + dish.getId()}">+</button>
+                  <input th:id="${'dish-count-' + dish.getId()}" type="hidden" th:name="${'dishCount-' + dish.getId()}"
+                         value="0">
+              </div>
+          </div>
+      </div>-->
+
+    <button type="submit">Zamów</button>
+</form>
+
+</body>
+</html>
+
+
+<!--
+przycisk musi mieć unikatowe ID
+
+musi dać się wyciągnąć wszystkie przyciski (zbiór przycisków)
+wszystki przyciskom należy zdefiniować tą samą akcję
+akcja polega na naliczeniu ilości w inpucie o odpowiadającym przyciskowi id oraz odpowiednim labelu
+-->
+
+
+<!-- i get i post robią zapytanie-->
